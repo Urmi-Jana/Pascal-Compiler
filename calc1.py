@@ -90,7 +90,7 @@ class Interpreter(object):
             self.error()
 
     def expr(self):
-        """expr -> INTEGER PLUS INTEGER | INTEGER SUB INTEGER"""
+        """expr -> INTEGER PLUS INTEGER """
         # set current token to the first token taken from the input
         self.current_token = self.get_next_token()
 
@@ -100,7 +100,7 @@ class Interpreter(object):
 
         # we expect the current token to be a '+' token
         op = self.current_token
-        if not self.eat(PLUS): self.eat(SUB)
+        self.eat(PLUS)
 
         # we expect the current token to be a single-digit integer
         right = self.current_token
@@ -113,7 +113,7 @@ class Interpreter(object):
         # return the result of adding two integers, thus
         # effectively interpreting client input
         if op.type == 'PLUS':result = left.value + right.value
-        if op.type == 'SUB':result = left.value - right.value
+#         if op.type == 'SUB':result = left.value - right.value
         return result
 
 
