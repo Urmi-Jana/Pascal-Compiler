@@ -104,8 +104,12 @@ class Interpreter(object):
 
         # we expect the current token to be a '+' token
         op = self.current_token
+
         if op.type == 'PLUS': self.eat(PLUS)
         if op.type == 'SUB': self.eat(SUB)
+
+        self.eat(PLUS)
+
 
         # we expect the current token to be a single-digit integer
         right = self.current_token
@@ -118,7 +122,7 @@ class Interpreter(object):
         # return the result of adding two integers, thus
         # effectively interpreting client input
         if op.type == 'PLUS':result = left.value + right.value
-        if op.type == 'SUB':result = left.value - right.value
+#         if op.type == 'SUB':result = left.value - right.value
         return result
 
 
