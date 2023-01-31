@@ -4,6 +4,7 @@
 # there is no more input left for lexical analysis
 INTEGER, PLUS, SUB, EOF = 'INTEGER', 'PLUS', 'SUB', 'EOF'
 
+import re
 
 class Token(object):
     def __init__(self, type, value):
@@ -57,12 +58,15 @@ class Interpreter(object):
         # get a character at the position self.pos and decide
         # what token to create based on the single character
         current_char = text[self.pos]
+        # next_char = text[self.pos + 1]
 
         # if the character is a digit then convert it to
         # integer, create an INTEGER token, increment self.pos
         # index to point to the next character after the digit,
         # and return the INTEGER token
         if current_char.isdigit():
+            print(re.search('\w', text).group())
+            
             token = Token(INTEGER, int(current_char))
             self.pos += 1
             return token
@@ -90,7 +94,7 @@ class Interpreter(object):
             self.error()
 
     def expr(self):
-        """expr -> INTEGER PLUS INTEGER | INTEGER SUB INTEGER"""
+        """expr -> INTEGER PLUS INTEGER """
         # set current token to the first token taken from the input
         self.current_token = self.get_next_token()
 
@@ -100,7 +104,8 @@ class Interpreter(object):
 
         # we expect the current token to be a '+' token
         op = self.current_token
-        if not self.eat(PLUS): self.eat(SUB)
+        if op.type == 'PLUS': self.eat(PLUS)
+        if op.type == 'SUB': self.eat(SUB)
 
         # we expect the current token to be a single-digit integer
         right = self.current_token
