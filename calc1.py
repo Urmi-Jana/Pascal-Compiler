@@ -65,7 +65,7 @@ class Interpreter(object):
         # index to point to the next character after the digit,
         # and return the INTEGER token
         if current_char.isdigit():
-            print(re.search('\w', text).group())
+            # print(re.search('\w', text).group())
             
             token = Token(INTEGER, int(current_char))
             self.pos += 1
@@ -108,8 +108,6 @@ class Interpreter(object):
         if op.type == 'PLUS': self.eat(PLUS)
         if op.type == 'SUB': self.eat(SUB)
 
-        self.eat(PLUS)
-
 
         # we expect the current token to be a single-digit integer
         right = self.current_token
@@ -122,7 +120,7 @@ class Interpreter(object):
         # return the result of adding two integers, thus
         # effectively interpreting client input
         if op.type == 'PLUS':result = left.value + right.value
-#         if op.type == 'SUB':result = left.value - right.value
+        if op.type == 'SUB':result = left.value - right.value
         return result
 
 
